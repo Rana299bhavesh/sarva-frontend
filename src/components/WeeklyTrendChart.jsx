@@ -1,57 +1,96 @@
-// import React from 'react';
-// import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
-
-// export default function WeeklyTrendChart({ data }) {
-//   return (
-//     <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm h-80">
-//       <h3 className="text-lg font-semibold mb-1">Weekly Activity</h3>
-//       <p className="text-sm text-gray-400 mb-6">Content creation trends</p>
-//       <ResponsiveContainer width="100%" height="100%">
-//         <LineChart data={data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
-//           <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f0f0f0" />
-//           <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{fill: '#9ca3af', fontSize: 12}} />
-//           <YAxis axisLine={false} tickLine={false} tick={{fill: '#9ca3af', fontSize: 12}} />
-//           <Tooltip cursor={{stroke: '#f3f4f6', strokeWidth: 2}} />
-//           <Legend iconType="circle" wrapperStyle={{ fontSize: '12px' }}/>
-//           <Line type="monotone" dataKey="lesson" stroke="#34d399" strokeWidth={3} dot={{r: 4}} activeDot={{r: 6}} />
-//           <Line type="monotone" dataKey="quiz" stroke="#fbbf24" strokeWidth={3} dot={{r: 4}} />
-//           <Line type="monotone" dataKey="assessment" stroke="#f87171" strokeWidth={3} dot={{r: 4}} />
-//         </LineChart>
-//       </ResponsiveContainer>
-//     </div>
-//   );
-// }
-
-
-
-
-
-
-
-
 import React from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 
 export default function WeeklyTrendChart({ data }) {
   return (
-    // We changed the height from h-80 to h-96 and made it a flex column
-    <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex flex-col h-96">
-      <h3 className="text-lg font-semibold mb-1">Weekly Activity</h3>
-      <p className="text-sm text-gray-400 mb-4">Content creation trends</p>
+    <div className="bg-[#1e293b] p-8 rounded-[2.5rem] border border-slate-700/50 shadow-2xl flex flex-col h-[500px] transition-all duration-300 hover:shadow-indigo-500/5">
+      <div className="flex justify-between items-start mb-8">
+        <div>
+          <h3 className="text-xl font-bold text-white tracking-tight">Weekly Activity</h3>
+          <p className="text-xs text-indigo-400 font-bold uppercase tracking-[0.2em] mt-1">Live Analytics Stream</p>
+        </div>
+        <div className="flex space-x-2">
+          <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+          <div className="w-2 h-2 rounded-full bg-slate-700"></div>
+          <div className="w-2 h-2 rounded-full bg-slate-700"></div>
+        </div>
+      </div>
       
-      {/* This critical wrapper tells Recharts to ONLY take up the remaining space */}
       <div className="flex-1 w-full min-h-0">
-        {/* Using width="99%" instead of 100% prevents another known Recharts resizing bug */}
-        <ResponsiveContainer width="99%" height="100%">
-          <LineChart data={data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f0f0f0" />
-            <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{fill: '#9ca3af', fontSize: 12}} />
-            <YAxis axisLine={false} tickLine={false} tick={{fill: '#9ca3af', fontSize: 12}} />
-            <Tooltip cursor={{stroke: '#f3f4f6', strokeWidth: 2}} />
-            <Legend iconType="circle" wrapperStyle={{ fontSize: '12px' }}/>
-            <Line type="monotone" dataKey="lesson" stroke="#34d399" strokeWidth={3} dot={{r: 4}} activeDot={{r: 6}} />
-            <Line type="monotone" dataKey="quiz" stroke="#fbbf24" strokeWidth={3} dot={{r: 4}} />
-            <Line type="monotone" dataKey="assessment" stroke="#f87171" strokeWidth={3} dot={{r: 4}} />
+        <ResponsiveContainer width="100%" height="100%">
+          <LineChart data={data} margin={{ top: 10, right: 10, bottom: 0, left: -20 }}>
+            <defs>
+              {/* Added Gradients for a premium glow effect */}
+              <linearGradient id="colorLesson" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="#10b981" stopOpacity={0.3}/>
+                <stop offset="95%" stopColor="#10b981" stopOpacity={0}/>
+              </linearGradient>
+            </defs>
+            
+            <CartesianGrid strokeDasharray="0" vertical={false} stroke="#334155" strokeOpacity={0.5} />
+            
+            <XAxis 
+              dataKey="date" 
+              axisLine={false} 
+              tickLine={false} 
+              tick={{fill: '#64748b', fontSize: 10, fontWeight: 600}} 
+              dy={15}
+            />
+            
+            <YAxis 
+              axisLine={false} 
+              tickLine={false} 
+              tick={{fill: '#64748b', fontSize: 10, fontWeight: 600}} 
+            />
+            
+            <Tooltip 
+              contentStyle={{ 
+                backgroundColor: '#0f172a', 
+                borderRadius: '16px', 
+                border: '1px solid #334155',
+                boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.5)',
+                color: '#f8fafc'
+              }}
+              itemStyle={{ fontSize: '12px', fontWeight: 'bold' }}
+              cursor={{ stroke: '#6366f1', strokeWidth: 2, strokeDasharray: '5 5' }}
+            />
+            
+            <Legend 
+              verticalAlign="top" 
+              align="right" 
+              iconType="diamond" 
+              wrapperStyle={{ paddingBottom: '30px', fontSize: '11px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px' }}
+            />
+            
+            <Line 
+              type="bundle" 
+              dataKey="lesson" 
+              stroke="#10b981" 
+              strokeWidth={4} 
+              dot={false}
+              activeDot={{ r: 8, fill: '#10b981', stroke: '#fff', strokeWidth: 2 }} 
+              animationDuration={2000}
+            />
+            
+            <Line 
+              type="bundle" 
+              dataKey="quiz" 
+              stroke="#6366f1" 
+              strokeWidth={4} 
+              dot={false}
+              activeDot={{ r: 8, fill: '#6366f1', stroke: '#fff', strokeWidth: 2 }}
+              animationDuration={2000}
+            />
+            
+            <Line 
+              type="bundle" 
+              dataKey="assessment" 
+              stroke="#f43f5e" 
+              strokeWidth={4} 
+              dot={false}
+              activeDot={{ r: 8, fill: '#f43f5e', stroke: '#fff', strokeWidth: 2 }}
+              animationDuration={2000}
+            />
           </LineChart>
         </ResponsiveContainer>
       </div>

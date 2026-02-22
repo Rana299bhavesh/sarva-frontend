@@ -8,3 +8,7 @@ export const fetchInsights = (teacherId = '') =>
 export const fetchTeachers = () => API.get('/teachers');
 
 export const uploadData = (records) => API.post('/upload', { records });
+
+
+// https://sarva-backend-ic6r.onrender.com/api
+// http://localhost:5000/
